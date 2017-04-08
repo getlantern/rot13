@@ -37,3 +37,12 @@ func TestRoundTrip(t *testing.T) {
 	assert.Equal(t, len(orig), len(rt.Bytes()), "Size of round-tripped didn't equal original")
 	assert.Equal(t, orig, rt.Bytes(), "Round-tripped didn't equal original")
 }
+
+func TestRot13(t *testing.T) {
+	var b bytes.Buffer
+	w := NewWriter(&b)
+	w.Write([]byte("amnzAMNZ"))
+	if b.String() != "nzamNZAM" {
+		t.Errorf("Not ROT13: got %q", b.String())
+	}
+}
